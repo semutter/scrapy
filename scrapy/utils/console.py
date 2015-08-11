@@ -4,6 +4,7 @@ def start_python_console(namespace=None, noipython=False, banner=''):
     available, an IPython console will be started instead, unless `noipython`
     is True. Also, tab completion will be used on Unix systems.
     """
+    #namespace是什么？？，
     if namespace is None:
         namespace = {}
 
@@ -11,6 +12,7 @@ def start_python_console(namespace=None, noipython=False, banner=''):
         try: # use IPython if available
             if noipython:
                 raise ImportError()
+                #通过异常作为程序结构的控制，避免一个if else，一个缩进？？
 
             try:
                 from IPython.terminal.embed import InteractiveShellEmbed
