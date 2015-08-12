@@ -23,6 +23,7 @@ def gunzip(data):
                 output += f.extrabuf
                 break
             else:
+                #将捕获的错误继续向上抛出
                 raise
     return output
 
