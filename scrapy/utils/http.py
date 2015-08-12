@@ -19,6 +19,7 @@ def decode_chunked_transfer(chunked_body):
         h, t = t.split('\r\n', 1)
         if h == '0':
             break
+        #本身为16进制，转换为10进制
         size = int(h, 16)
         body += t[:size]
         t = t[size+2:]
