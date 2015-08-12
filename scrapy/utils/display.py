@@ -10,6 +10,7 @@ def _colorize(text, colorize=True):
     if not colorize or not sys.stdout.isatty():
         return text
     try:
+        #pygments is a generic synatx highlighter
         from pygments import highlight
         from pygments.formatters import TerminalFormatter
         from pygments.lexers import PythonLexer
@@ -18,6 +19,7 @@ def _colorize(text, colorize=True):
         return text
 
 def pformat(obj, *args, **kwargs):
+    #args与kwargs中非colorize字段都会被忽略
     return _colorize(pformat_(obj), kwargs.pop('colorize', True))
 
 def pprint(obj, *args, **kwargs):
