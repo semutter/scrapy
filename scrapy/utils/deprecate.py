@@ -27,7 +27,8 @@ def create_deprecated_class(name, new_class, clsdict=None,
     Subclasses of ``new_class`` are considered subclasses of this class.
     It also warns when the deprecated class is instantiated, but do not when
     its subclasses are instantiated.
-
+    返回一个废弃类，它可以使它的子类爆出warning，新类的子类被认为时这个类的子类，同时会在废弃类被实例化时候报错
+    但它子类实例化时候兵不报错
     It can be used to rename a base class in a library. For example, if we
     have
 
@@ -46,6 +47,7 @@ def create_deprecated_class(name, new_class, clsdict=None,
     checks they'll still return True if sub is a subclass of NewName instead of
     OldName.
     """
+    
 
     class DeprecatedClass(new_class.__class__):
 
