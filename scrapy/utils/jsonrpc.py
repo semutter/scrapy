@@ -34,11 +34,15 @@ def jsonrpc_client_call(url, method, *args, **kwargs):
     if args and kwargs:
         raise ValueError("Pass *args or **kwargs but not both to jsonrpc_client_call")
     req = {'jsonrpc': '2.0', 'method': method, 'params': args or kwargs, 'id': 1}
+    #可以使用urllib.urlopen(url, json_example)这种形式去访问服务器端？？
+    #urlopen(url, data=None, proxies=None)
+    #Create a file-like object for the specified URL to read from.
     res = json.loads(_urllib.urlopen(url, json.dumps(req)).read())
     if 'result' in res:
         return res['result']
     elif 'error' in res:
         er = res['error']
+        #er与服务器端与客户端默认设置好的json模版一致
         raise JsonRpcError(er['code'], er['message'], er['data'])
     else:
         msg = "JSON-RPC response must contain 'result' or 'error': %s" % res
@@ -56,6 +60,7 @@ def jsonrpc_server_call(target, jsonrpc_request, json_decoder=None):
     except Exception as e:
         return jsonrpc_error(None, jsonrpc_errors.PARSE_ERROR, 'Parse error', \
             traceback.format_exc())
+        #treaceback？？
 
     try:
         id, methname = req['id'], req['method']
