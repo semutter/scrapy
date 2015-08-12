@@ -22,7 +22,8 @@ def get_engine_status(engine):
         "engine.scraper.slot.itemproc_size",
         "engine.scraper.slot.needs_backout()",
     ]
-
+    
+    #使用异常与eval函数构建测试
     checks = []
     for test in tests:
         try:
