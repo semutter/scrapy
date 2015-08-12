@@ -5,3 +5,4 @@ For new code, always import from w3lib.html instead of this module
 """
 
 from w3lib.html import *
+#not knowing what's the purpose of this file
