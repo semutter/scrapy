@@ -1,7 +1,8 @@
 import warnings
 from functools import wraps
-
+#functools 中的wraps？？
 from twisted.internet import defer, threads
+#twisted中的defer与threads？？
 
 from scrapy.exceptions import ScrapyDeprecationWarning
 
