@@ -98,3 +98,4 @@ def iter_errback(iterable, errback, *a, **kw):
             break
         except:
             errback(failure.Failure(), *a, **kw)
+#？？
