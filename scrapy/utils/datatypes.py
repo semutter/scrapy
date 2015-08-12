@@ -179,7 +179,7 @@ class SiteNode(object):
 
 
 class CaselessDict(dict):
-    #caselessdict又是什么鬼，作用是什么
+    #caselessdict是不区分key大小写的字典
     #slot是什么？？
     __slots__ = ()
 
@@ -213,6 +213,7 @@ class CaselessDict(dict):
 
     def normvalue(self, value):
         """Method to normalize values prior to be setted"""
+        #封装抽象了一层，具体的情况可以再修改这个函数
         return value
 
     def get(self, key, def_val=None):
@@ -225,7 +226,8 @@ class CaselessDict(dict):
         seq = seq.iteritems() if isinstance(seq, dict) else seq
         iseq = ((self.normkey(k), self.normvalue(v)) for k, v in seq)
         super(CaselessDict, self).update(iseq)
-
+    
+    #fromkeys中间的cls究竟是什么
     @classmethod
     def fromkeys(cls, keys, value=None):
         return cls((k, value) for k in keys)
@@ -264,11 +266,13 @@ class MergeDict(object):
 
     def getlist(self, key):
         for dict_ in self.dicts:
+            #与上面的getitem的写法区别有必要么，是因为不是一个人写的原因么
             if key in dict_.keys():
                 return dict_.getlist(key)
         return []
 
     def items(self):
+        #reduce(lambda a,b:a.extend(b), map(lambda t: t.items, self.dicts))
         item_list = []
         for dict_ in self.dicts:
             item_list.extend(dict_.items())
@@ -293,6 +297,7 @@ class LocalCache(OrderedDict):
     Older items expires first.
 
     """
+    #orderedDict
 
     def __init__(self, limit=None):
         super(LocalCache, self).__init__()
