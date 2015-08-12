@@ -17,6 +17,7 @@ from operator import itemgetter
 
 NoneType = type(None)
 
+#默认字典，每个key默认value为一个weakkeydictionary
 live_refs = defaultdict(weakref.WeakKeyDictionary)
 
 class object_ref(object):
@@ -26,6 +27,9 @@ class object_ref(object):
     __slots__ = ()
 
     def __new__(cls, *args, **kwargs):
+        #继承自object的新式类才会有__new__
+        #__new__至少有一个参数cls，代表要实例化的类，此参数在实例化时由python解释器自动提供
+        #存在参数*args与**kwargs的作用是在多个继承中保持一致性
         obj = object.__new__(cls)
         live_refs[cls][obj] = time()
         return obj
@@ -50,9 +54,12 @@ def get_oldest(class_name):
     for cls, wdict in live_refs.iteritems():
         if cls.__name__ == class_name:
             if wdict:
+                #按value值进行排序，找到最小的，亦即时间最小的，亦即最老的，
+                #返回对应的key，即这个class_name下的最老的对象
                 return min(wdict.iteritems(), key=itemgetter(1))[0]
 
 def iter_all(class_name):
     for cls, wdict in live_refs.iteritems():
         if cls.__name__ == class_name:
             return wdict.iterkeys()
+    #返回该class_name下的所有对象的迭代器
