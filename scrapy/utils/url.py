@@ -27,6 +27,9 @@ def url_is_from_any_domain(url, domains):
 
 def url_is_from_spider(url, spider):
     """Return True if the url belongs to the given spider"""
+    #getattr所得到的有可能是tuple，tuple与list无法使用+连结
+    #list有extend方法可以与list或者tuple连结
+    #tuple没有extend 方法
     return url_is_from_any_domain(url,
         [spider.name] + list(getattr(spider, 'allowed_domains', [])))
 
@@ -34,7 +37,7 @@ def url_is_from_spider(url, spider):
 def url_has_any_extension(url, extensions):
     return posixpath.splitext(parse_url(url).path)[1].lower() in extensions
 
-
+    #标准化url？？
 def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
         encoding=None):
     """Canonicalize the given url by applying the following procedures:
@@ -63,6 +66,7 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
 
 
 def _unquotepath(path):
+    #%的urlquote之后是%25
     for reserved in ('2f', '2F', '3f', '3F'):
         path = path.replace('%' + reserved, '%25' + reserved.upper())
     return urllib.unquote(path)
@@ -80,7 +84,7 @@ def escape_ajax(url):
     """
     Return the crawleable url according to:
     http://code.google.com/web/ajaxcrawling/docs/getting-started.html
-
+    # = 的urlencode是 %3D
     >>> escape_ajax("www.example.com/ajax.html#!key=value")
     'www.example.com/ajax.html?_escaped_fragment_=key%3Dvalue'
     >>> escape_ajax("www.example.com/ajax.html?k1=v1&k2=v2#!key=value")
@@ -103,3 +107,4 @@ def escape_ajax(url):
     if not frag.startswith('!'):
         return url
     return add_or_replace_parameter(defrag, '_escaped_fragment_', frag[1:])
+    # add_or_replace_parameter 是w3lib.url中的函数
