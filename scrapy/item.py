@@ -6,7 +6,7 @@ See documentation in docs/topics/item.rst
 
 from pprint import pformat
 from UserDict import DictMixin
-
+#UserDict 中的DictMixin
 from scrapy.utils.trackref import object_ref
 
 
@@ -20,7 +20,7 @@ class Field(dict):
 
 
 class ItemMeta(type):
-
+    #新式类是指每个类都是metaclass的实例
     def __new__(mcs, class_name, bases, attrs):
         fields = {}
         new_attrs = {}
