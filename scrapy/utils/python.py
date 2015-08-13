@@ -17,7 +17,7 @@ from sgmllib import SGMLParser
 class FixedSGMLParser(SGMLParser):
     """The SGMLParser that comes with Python has a bug in the convert_charref()
     method. This is the same class with the bug fixed"""
-
+    #修复bug，shocked
     def convert_charref(self, name):
         """This method fixes a bug in Python's SGMLParser."""
         try:
@@ -121,6 +121,8 @@ def re_rsearch(pattern, text, chunk_size=1024):
     pattern = re.compile(pattern) if isinstance(pattern, basestring) else pattern
     for chunk, offset in _chunk_iter():
         matches = [match for match in pattern.finditer(chunk)]
+        #finditer，返回一个迭代器，每个对应于找到的一个pattern，每个均有span方法去得到当前匹配位于字符串的位置
+        #如果有就有return，跳出循环，一直到最后都没有的话，就return None
         if matches:
             return (offset + matches[-1].span()[0], offset + matches[-1].span()[1])
     return None
@@ -143,11 +145,14 @@ def isbinarytext(text):
     """Return True if the given text is considered binary, or false
     otherwise, by looking for binary bytes at their chars
     """
+    #assert 用法？？
     assert isinstance(text, str), "text must be str, got '%s'" % type(text).__name__
+    #any 和迭代器一起使用时运算机制？？
     return any(c in _BINARYCHARS for c in text)
 
 def get_func_args(func, stripself=False):
     """Return the argument name list of a callable"""
+    #分情况讨论
     if inspect.isfunction(func):
         func_args, _, _, _ = inspect.getargspec(func)
     elif inspect.isclass(func):
@@ -157,6 +162,7 @@ def get_func_args(func, stripself=False):
     elif inspect.ismethoddescriptor(func):
         return []
     elif isinstance(func, partial):
+        #偏函数？？
         return [x for x in get_func_args(func.func)[len(func.args):]
                 if not (func.keywords and x in func.keywords)]
     elif hasattr(func, '__call__'):
@@ -200,9 +206,11 @@ def get_spec(func):
         spec = inspect.getargspec(func.__call__)
     else:
         raise TypeError('%s is not callable' % type(func))
-
+    
+    #当spec.defaults 为None时返回[]
     defaults = spec.defaults or []
-
+    
+    #有默认值的为字典**kwargs
     firstdefault = len(spec.args) - len(defaults)
     args = spec.args[:firstdefault]
     kwargs = dict(zip(spec.args[firstdefault:], defaults))
@@ -276,6 +284,7 @@ def setattr_default(obj, name, value):
 
 def retry_on_eintr(function, *args, **kw):
     """Run a function and retry it while getting EINTR errors"""
+    #EINTR error根本看不懂简单的介绍是在说什么？？牵扯到linux系统内核
     while True:
         try:
             return function(*args, **kw)
