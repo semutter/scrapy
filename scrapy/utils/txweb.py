@@ -18,3 +18,4 @@ class JsonResource(resource.Resource):
         txrequest.setHeader('Access-Control-Allow-Headers',' X-Requested-With')
         txrequest.setHeader('Content-Length', len(r))
         return r
+        #
