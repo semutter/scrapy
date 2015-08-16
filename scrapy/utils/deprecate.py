@@ -76,6 +76,7 @@ def create_deprecated_class(name, new_class, clsdict=None,
         # see http://www.python.org/dev/peps/pep-3119/#overloading-isinstance-and-issubclass
         # and http://docs.python.org/2/reference/datamodel.html#customizing-instance-and-subclass-checks
         # for implementation details
+        ＃自定义isinstance与issubclass两个函数
         def __instancecheck__(cls, inst):
             return any(cls.__subclasscheck__(c)
                        for c in {type(inst), inst.__class__})
