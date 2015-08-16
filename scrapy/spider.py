@@ -51,7 +51,8 @@ class Spider(object_ref):
 
     def make_requests_from_url(self, url):
         return Request(url, dont_filter=True)
-
+        
+    ＃如果没有覆盖这parse函数，那么就会触发异常
     def parse(self, response):
         raise NotImplementedError
 
@@ -64,7 +65,9 @@ class Spider(object_ref):
 
     __repr__ = __str__
 
-
+＃返回一个废弃类，它可以使它的子类爆出warning，新类的子类被认为时这个类的子类，同时会在废弃类被实例化时候报错
+＃但它子类实例化时候兵不报错，详见create_deprecated_class函数定义，
+＃将原先BaseSpider迁移到Spider，并且Spider的子类仍然是BaseSpider的子类，但是BaseSpider无法实例化，其子类可以
 BaseSpider = create_deprecated_class('BaseSpider', Spider)
 
 
@@ -78,4 +81,5 @@ class ObsoleteClass(object):
 spiders = ObsoleteClass("""
 "from scrapy.spider import spiders" no longer works - use "from scrapy.project import crawler" and then access crawler.spiders attribute"
 """)
+＃一些小技巧去控制版本中类和函数的变更
 
