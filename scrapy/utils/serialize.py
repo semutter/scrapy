@@ -8,7 +8,7 @@ from twisted.internet import defer
 from scrapy.spider import Spider
 from scrapy.http import Request, Response
 from scrapy.item import BaseItem
-
+#序列化就是obj与字符串的相互转换，这里obj特定为spider
 
 class SpiderReferencer(object):
     """Class to serialize (and deserialize) objects (typically dicts)
