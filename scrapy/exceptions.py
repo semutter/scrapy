@@ -52,5 +52,6 @@ class ScrapyDeprecationWarning(Warning):
     pass
 
 class ContractFail(AssertionError):
+    #contract是什么啊
     """Error raised in case of a failing contract"""
     pass
