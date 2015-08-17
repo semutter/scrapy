@@ -35,6 +35,7 @@ def create_spider_for_request(spidermanager, request, default_spider=None, \
     default_spider passed. It can optionally log if multiple or no spiders
     are found.
     """
+    #一些具体的细节均在spidermanager上面
     snames = spidermanager.find_by_request(request)
     if len(snames) == 1:
         return spidermanager.create(snames[0], **spider_kwargs)
