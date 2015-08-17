@@ -4,7 +4,7 @@ Scrapy signals
 These signals are documented in docs/topics/signals.rst. Please don't add new
 signals here without documenting them there.
 """
-
+#signal object()这是什么？？
 engine_started = object()
 engine_stopped = object()
 spider_opened = object()
