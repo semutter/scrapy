@@ -1,5 +1,5 @@
 from zope.interface import Interface
-
+#zope.interface Interface整个zope.interface？？
 class ISpiderManager(Interface):
 
     def create(spider_name, **spider_args):
