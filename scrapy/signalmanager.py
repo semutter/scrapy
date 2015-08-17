@@ -1,4 +1,5 @@
 from scrapy.xlib.pydispatch import dispatcher
+#dispatcher消息分发，具体实现？？
 from scrapy.utils import signal
 
 class SignalManager(object):
