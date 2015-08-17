@@ -3,6 +3,8 @@
 import re
 import hashlib
 from importlib import import_module
+#importlib ？？ import_module
+#pkgutil ？？iter_modules
 from pkgutil import iter_modules
 
 from w3lib.html import replace_entities
@@ -18,6 +20,7 @@ def arg_to_iter(arg):
     """
     if arg is None:
         return []
+    #非字典，非BaseItem，且有iter属性的，直接返回
     elif not isinstance(arg, (dict, BaseItem)) and hasattr(arg, '__iter__'):
         return arg
     else:
@@ -37,6 +40,7 @@ def load_object(path):
 
     module, name = path[:dot], path[dot+1:]
     try:
+        #动态导入包import_module
         mod = import_module(module)
     except ImportError as e:
         raise ImportError("Error loading object '%s': %s" % (path, e))
@@ -60,6 +64,7 @@ def walk_modules(path, load=False):
     mod = import_module(path)
     mods.append(mod)
     if hasattr(mod, '__path__'):
+        #iter_modules ？？
         for _, subpath, ispkg in iter_modules(mod.__path__):
             fullpath = path + '.' + subpath
             if ispkg:
@@ -87,6 +92,8 @@ def extract_regex(regex, text, encoding='utf-8'):
     strings = flatten(strings)
 
     if isinstance(text, unicode):
+        #replace_entities ？？ keep是什么
+        #Remove entities from the given text by converting them to their corresponding unicode character
         return [replace_entities(s, keep=['lt', 'amp']) for s in strings]
     else:
         return [replace_entities(unicode(s, encoding), keep=['lt', 'amp']) for s in strings]
@@ -99,6 +106,7 @@ def md5sum(file):
     >>> md5sum(StringIO('file content to hash'))
     '784406af91dd5a54fbb9c84c2236595a'
     """
+    #返回文件类型的内容的md5编码
     m = hashlib.md5()
     while 1:
         d = file.read(8096)
