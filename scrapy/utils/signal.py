@@ -9,6 +9,8 @@ from scrapy.xlib.pydispatch.robustapply import robustApply
 
 from scrapy import log
 
+#需要先查看dispatcher消息分发机制的实现，scrapy.xlib.pydispatch等等？？
+
 def send_catch_log(signal=Any, sender=Anonymous, *arguments, **named):
     """Like pydispatcher.robust.sendRobust but it also logs errors and returns
     Failures instead of exceptions.
