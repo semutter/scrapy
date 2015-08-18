@@ -4,7 +4,7 @@ requests in Scrapy.
 
 See documentation in docs/topics/request-response.rst
 """
-
+# scrapy 中的Request
 import copy
 
 from w3lib.url import safe_url_string
