@@ -63,6 +63,7 @@ class TextResponse(Response):
             self._cached_ubody = html_to_unicode(charset, self.body)[1]
         return self._cached_ubody
 
+    #缓存无参数函数的结果
     @memoizemethod_noargs
     def _headers_encoding(self):
         content_type = self.headers.get('Content-Type')
@@ -96,7 +97,8 @@ class TextResponse(Response):
         if self._cached_selector is None:
             self._cached_selector = Selector(self)
         return self._cached_selector
-
+    
+    #xpath 与css都是简单的快捷方法，具体实现看selector
     def xpath(self, query):
         return self.selector.xpath(query)
 
