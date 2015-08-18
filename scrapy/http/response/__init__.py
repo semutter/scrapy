@@ -10,6 +10,7 @@ import copy
 from scrapy.http.headers import Headers
 from scrapy.utils.trackref import object_ref
 from scrapy.http.common import obsolete_setter
+#与request类似，一些基本属性与方法
 
 class Response(object_ref):
 
