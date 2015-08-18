@@ -5,6 +5,8 @@ Use this module (instead of the more specific ones) when importing Headers,
 Request and Response outside this module.
 """
 
+#导入本模块下的一些东西
+
 from scrapy.http.headers import Headers
 
 from scrapy.http.request import Request
