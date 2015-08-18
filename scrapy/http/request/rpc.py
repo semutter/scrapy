@@ -19,6 +19,7 @@ class XmlRpcRequest(Request):
         encoding = kwargs.get('encoding', None)
         if 'body' not in kwargs and 'params' in kwargs:
             kw = dict((k, kwargs.pop(k)) for k in DUMPS_ARGS if k in kwargs)
+            #将xmlrpclib.dumps所需的参数，如果存在于kwargs之中，那么将其取出，封装为xmlrpc Request的body
             kwargs['body'] = xmlrpclib.dumps(**kw)
 
         # spec defines that requests must use POST method
