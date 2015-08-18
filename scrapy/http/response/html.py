@@ -7,5 +7,6 @@ See documentation in docs/topics/request-response.rst
 
 from scrapy.http.response.text import TextResponse
 
+#textresponse与htmlresponse无区别？？
 class HtmlResponse(TextResponse):
     pass
