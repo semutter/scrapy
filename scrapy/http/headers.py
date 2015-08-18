@@ -1,7 +1,7 @@
 from w3lib.http import headers_dict_to_raw
 from scrapy.utils.datatypes import CaselessDict
 
-
+#不区分字母大小写的dict的衍生子类
 class Headers(CaselessDict):
     """Case insensitive http headers dictionary"""
 
@@ -65,6 +65,7 @@ class Headers(CaselessDict):
         return [self[k] for k in self.keys()]
 
     def to_string(self):
+        #headers_dict_to_raw 将dict转换为字符串
         return headers_dict_to_raw(self)
 
     def __copy__(self):
