@@ -22,6 +22,7 @@ class FormRequest(Request):
 
         if formdata:
             items = formdata.iteritems() if isinstance(formdata, dict) else formdata
+            #这里的_urlencode是哪里的，下文中的
             querystr = _urlencode(items, self.encoding)
             if self.method == 'POST':
                 self.headers.setdefault('Content-Type', 'application/x-www-form-urlencoded')
@@ -38,6 +39,7 @@ class FormRequest(Request):
         url = _get_form_url(form, kwargs.pop('url', None))
         method = kwargs.pop('method', form.method)
         return cls(url=url, method=method, formdata=formdata, **kwargs)
+    #FormRequest.from_response这种逻辑？？
 
 def _get_form_url(form, url):
     if url is None:
